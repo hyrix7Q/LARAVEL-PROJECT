@@ -17,11 +17,18 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+
+     public function scopeFilter($query)
+     {
+        $query->where('role','like','%' . 'Commercial' . '%');
+     }
     protected $fillable = [
-        'name',
-        'email',
+        'firstName',
+        'secondName',
+        'emailAddress',
         'password',
-        'isAdmin'
+        'isAdmin','role'
     ];
 
     /**

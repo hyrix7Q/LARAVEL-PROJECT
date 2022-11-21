@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommercialController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProspectsController;
+use App\Http\Controllers\UserController;
 use App\Models\Prospect;
 use Illuminate\Support\Facades\Route;
 
@@ -18,17 +20,43 @@ use Illuminate\Support\Facades\Route;
 
 //Main route
 Route::get('/',function(){
-   return view('main');
+   return view('statistics');
+});
+
+Route::get('/register',function(){
+   return view('Authentication.register');
 });
 
 //getting the clients
-Route::get('/clients',[ProductsController::class,'show']);
+Route::get('/prospects',[ProspectsController::class,'show']);
 
-//Showing the ADD CLIENT Form
-Route::get('/create',[ProspectsController::class,'create']);
+//Showing the ADD PROSPECT Form
+Route::get('/prospect/create',[ProspectsController::class,'create']);
 
 //Submitting the form and storing the infos in the database
-Route::post('/store',[ProspectsController::class,'store']);
+Route::post('/prospect/store',[ProspectsController::class,'store']);
+
+Route::get('/prospect/{prospect}/edit',[ProspectsController::class,'edit']);
+
+Route::put('/prospect/{prospect}/update',[ProspectsController::class,'update']);
+
+Route::delete('/prospect/{prospect}/delete',[ProspectsController::class,'delete']);
+{/* ------------------------------------------------------------------------- */}
+
+// COMMERCIALS
+
+Route::get('/commercial/create',[CommercialController::class,'create']);
+Route::post('/commercial/store',[CommercialController::class,'store']);
+
+Route::get('/commercial',[CommercialController::class,'show']);
+
+Route::get('/commercial/{commercial}/edit',[CommercialController::class,'edit']);
+Route::put('/commercial/{commercial}/update',[CommercialController::class,'update']);
+
+Route::delete('/commercial/{commercial}/delete',[CommercialController::class,'delete']);
+{/* ------------------------------------------------------------------------- */}
+Route::post('/login',[UserController::class,'login']);
+Route::get('/logout',[UserController::class,'logout']);
 
 {/* ------------------------------------------------------------------------- */}
 //getting the products
